@@ -24,6 +24,7 @@ void AddressBook::updateInterface(Mode mode)
 
         editButton->setEnabled(false);
         removeButton->setEnabled(false);
+        findButton->setEnabled(false);
         break;
     case EditingMode :
         nameLine->setReadOnly(false);
@@ -35,6 +36,7 @@ void AddressBook::updateInterface(Mode mode)
         removeButton->setEnabled(false);
         nextButton->setEnabled(false);
         previousButton->setEnabled(false);
+        findButton->setEnabled(false);
 
         submitButton->show();
         cancelButton->show();
@@ -53,7 +55,7 @@ void AddressBook::updateInterface(Mode mode)
         removeButton->setEnabled(contacts.size() >= 1);
         nextButton->setEnabled(contacts.size() > 1);
         previousButton->setEnabled(contacts.size() > 1);
-
+        findButton->setEnabled(contacts.size() >= 1);
         submitButton->hide();
         cancelButton->hide();
         break;
@@ -247,6 +249,27 @@ void AddressBook::removeContact()
     updateInterface(NavigationMode);      // 切换到导航模式
 }
 
+void AddressBook::findContact()
+{
+    dialog->setModal(true);  // 将此对话框设置为模态，否则的话可能会与父对话框数据冲突
+    dialog->show();
+
+    if(dialog->exec() == QDialog::Accepted) {
+        QString contactName = dialog->getFindText();
+
+        if(contacts.contains(contactName)) {
+            nameLine->setText(contactName);
+            addressText->setText(contacts.value(contactName));
+        } else {
+            QMessageBox::information(this, tr("Contact Not Found"),
+                                     tr("Sorry,\"%1\" is not in your address book.").arg(contactName));
+            return;
+        }
+    }
+
+    updateInterface(NavigationMode);
+}
+
 
 AddressBook::AddressBook(QWidget *parent)
     : QWidget(parent)
@@ -259,7 +282,7 @@ AddressBook::AddressBook(QWidget *parent)
     addressText = new QTextEdit;
     addressText->setReadOnly(true);      // 将addressText设置为只读
 
-    // 实例化一下按钮： addButton、submitButton、cancelButton、nextButton、previousButton
+    // 实例化一下按钮： addButton、submitButton、cancelButton、nextButton、previousButton、findButton
     addButton = new QPushButton(tr("&Add"));
     addButton->show();
     submitButton = new QPushButton(tr("&Submit"));
@@ -271,6 +294,12 @@ AddressBook::AddressBook(QWidget *parent)
     nextButton->setEnabled(false);        // 仅当地址簿有多个联系人的时候才会启用浏览功能
     previousButton = new QPushButton(tr("&Previous"));
     previousButton->setEnabled(false);
+
+    findButton = new QPushButton(tr("&Find"));
+    findButton->setEnabled(false);
+
+    // 实例化查找对话框
+    dialog = new FindDialog;
 
     /*
      * editButton 和 removeButton 实例化为默认禁用
@@ -295,6 +324,8 @@ AddressBook::AddressBook(QWidget *parent)
     connect(previousButton,SIGNAL(clicked()),this,SLOT(previous()));
     connect(editButton,SIGNAL(clicked()),this,SLOT(editContact()));
     connect(removeButton,SIGNAL(clicked()),this,SLOT(removeContact()));
+    connect(findButton, SIGNAL(clicked()), this, SLOT(findContact()));
+
 
     // 使用QVBoxLayout将其进行纵向排列
     QVBoxLayout *buttonLayout1 = new QVBoxLayout;
@@ -303,6 +334,7 @@ AddressBook::AddressBook(QWidget *parent)
     buttonLayout1->addWidget(cancelButton);
     buttonLayout1->addWidget(editButton);       // 编辑按钮
     buttonLayout1->addWidget(removeButton);     // 删除按钮
+    buttonLayout1->addWidget(findButton);       // 查找按钮
     buttonLayout1->addStretch();   // 此函数是用来确保按钮并不是采用均匀间隔排列的，而是更靠近widget的顶部
     // 使用QHBoxLayout将nextButton 按钮和 previousButton 按钮横向放置
     QHBoxLayout *buttonLayout2 = new QHBoxLayout;

@@ -24,7 +24,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp \
-    addressbook.cpp
+    addressbook.cpp \
+    finddialog.cpp
 
 HEADERS  += \
-    addressbook.h
+    addressbook.h \
+    finddialog.h

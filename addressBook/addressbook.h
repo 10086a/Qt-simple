@@ -9,6 +9,7 @@
 #include <qpushbutton.h>
 #include <qmap.h>
 #include <qmessagebox.h>
+#include "finddialog.h"
 
 /*
  * 枚举三种模式：Navigation、AddingMode、EditingMode
@@ -29,7 +30,7 @@ public:
 
 
 private:
-    // 七个按钮
+    // 八个按钮
     QPushButton *addButton;
     QPushButton *submitButton;
     QPushButton *cancelButton;
@@ -37,7 +38,7 @@ private:
     QPushButton *previousButton;
     QPushButton *editButton;
     QPushButton *removeButton;
-
+    QPushButton *findButton;
 
     Mode currentMode;
 
@@ -53,9 +54,15 @@ private:
     QString oldName;
     QString oldAddress;
 
+    // 查找对话框
+    /*
+     * 在实例化对话框后，我们可能会对其进行多次引用，使用私有变量可以在
+     * 类中不同位置对其多次引用。
+     */
+    FindDialog *dialog;
 
 public slots:
-    // 七个个对应的公共槽
+    // 八个对应的公共槽
     void addContact();
     void submitContact();
     void cancel();
@@ -65,6 +72,8 @@ public slots:
 
     void editContact();
     void removeContact();
+
+    void findContact();
 };
 
 #endif // ABBRESSBOOK_H
