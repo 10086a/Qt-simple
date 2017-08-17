@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="windowIcon">images/NOTEPAD.ico</file>
+        <file alias="about">images/about.ico</file>
+        <file alias="close">images/close.ico</file>
+        <file alias="exit">images/exit.ico</file>
+        <file alias="new">images/new.ico</file>
+        <file alias="open">images/open.ico</file>
+        <file alias="save">images/save.ico</file>
+        <file alias="saveAs">images/saveAs.ico</file>
+    </qresource>
+</RCC>

@@ -15,6 +15,9 @@
 ### 源码：
 
 1. addressBook（简单通讯录的实现）
+2. TextEdit（文档编辑器NotePad的实现）
+
+![](images/textedit.jpg)
 
 ### 知识梳理：
 
