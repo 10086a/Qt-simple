@@ -15,9 +15,18 @@
 ### 源码：
 
 1. addressBook（简单通讯录的实现）
+
 2. TextEdit（文档编辑器NotePad的实现）
 
-![](images/textedit.jpg)
+   ![](images/textedit.jpg)
+
+3. SalaryManageSystem（工资管理系统）
+
+   ![](images/SalaryDMS.gif)
+
+4. 待定。。。
+
+
 
 ### 知识梳理：
 
