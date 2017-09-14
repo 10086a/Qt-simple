@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="sod_one">网络.jpg</file>
+        <file>撤销.ico</file>
+        <file>断开.ico</file>
+        <file>剪切.ico</file>
+        <file>链接.ico</file>
+        <file>年终奖.ico</file>
+        <file>前进.ico</file>
+        <file>统计.ico</file>
+        <file>粘贴.ico</file>
+        <file>复制.ico</file>
+        <file>退出 .ico</file>
+        <file>about.ico</file>
+        <file>提交.ico</file>
+        <file>星星.ico</file>
+    </qresource>
+</RCC>
