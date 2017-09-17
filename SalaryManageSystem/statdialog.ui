@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
-    <height>398</height>
+    <width>447</width>
+    <height>453</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>447</width>
+    <height>453</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>447</width>
+    <height>453</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>数据统计</string>
@@ -23,7 +35,7 @@
       <attribute name="title">
        <string>个人统计</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,10">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
        <property name="spacing">
         <number>10</number>
        </property>
@@ -133,7 +145,43 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableView" name="tableView_1"/>
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="textElideMode">
+          <enum>Qt::ElideMiddle</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -141,7 +189,7 @@
       <attribute name="title">
        <string>部门统计</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,10">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0">
        <property name="spacing">
         <number>10</number>
        </property>
@@ -290,7 +338,31 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableView" name="tableView_2"/>
+        <widget class="QTableWidget" name="tableWidget_2">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="textElideMode">
+          <enum>Qt::ElideMiddle</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

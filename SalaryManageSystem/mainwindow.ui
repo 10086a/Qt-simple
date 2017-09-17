@@ -20,7 +20,7 @@
    <string>工资管理系统</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,10,10,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,10,10,1,0,40">
     <item>
      <widget class="QLabel" name="label_pic">
       <property name="styleSheet">
@@ -40,7 +40,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_0">
        <attribute name="title">
@@ -245,6 +245,59 @@
       </item>
      </layout>
     </item>
+    <item>
+     <widget class="QLabel" name="label_lock">
+      <property name="font">
+       <font>
+        <family>Source Code Pro Black</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/images/lockWindow&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+     <widget class="QCommandLinkButton" name="unlock_btn">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string>     解锁</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="shortcut">
+       <string>Ctrl+Shift+L</string>
+      </property>
+      <property name="autoRepeat">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -321,11 +374,14 @@
     </property>
     <addaction name="action_stat"/>
     <addaction name="action_find"/>
+    <addaction name="separator"/>
+    <addaction name="action_lock"/>
    </widget>
    <widget class="QMenu" name="menu_help">
     <property name="title">
      <string>帮助</string>
     </property>
+    <addaction name="action_update"/>
     <addaction name="action_about"/>
    </widget>
    <addaction name="menu_file"/>
@@ -547,6 +603,45 @@
    </property>
    <property name="statusTip">
     <string>连接SalaryDMS</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_update">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/images/update</normaloff>:/images/update</iconset>
+   </property>
+   <property name="text">
+    <string>更新日志</string>
+   </property>
+   <property name="toolTip">
+    <string>查看更新日志</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_lock">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/images/lock</normaloff>:/images/lock</iconset>
+   </property>
+   <property name="text">
+    <string>锁定窗口</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

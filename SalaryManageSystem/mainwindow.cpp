@@ -3,6 +3,7 @@
 #include "aboutdialog.h"
 #include "statdialog.h"
 #include "awardsdialog.h"
+#include "unlockdialog.h"
 
 #include <QClipboard>
 #include <QCloseEvent>
@@ -20,12 +21,13 @@
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QTimer>
+#include <QDesktopServices>
 
 
 /*
     连接数据库
 */
-bool createConnection()
+bool MainWindow::createConnection()
 {
     /*连接数据库*/
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
@@ -120,6 +122,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 剪切板
     clipboard = QApplication::clipboard();
+
+    ui->label_lock->hide();
+    ui->unlock_btn->hide();
+
 }
 /*
     重构关闭函数
@@ -173,6 +179,7 @@ void MainWindow::updateInterface(Mode mode)
         ui->action_undo->setEnabled(false);
         ui->menu_edit_sort->setEnabled(false);
         ui->action_stat->setEnabled(false);
+        ui->action_lock->setEnabled(false);
         break;
     case ConnectMode:
         ui->label->hide();
@@ -191,6 +198,7 @@ void MainWindow::updateInterface(Mode mode)
         ui->action_undo->setEnabled(true);
         ui->menu_edit_sort->setEnabled(true);
         ui->action_stat->setEnabled(true);
+        ui->action_lock->setEnabled(true);
         break;
     }
 }
@@ -439,5 +447,47 @@ void MainWindow::on_action_paste_triggered()
 void MainWindow::on_action_undo_triggered()
 {
     model->revertAll();  // 撤销所有操作
-//    curTableView->setModel(model);
+    //    curTableView->setModel(model);
+}
+/*
+    @SLOT
+    在“帮助“菜单栏上点击触发的信号槽
+    作用：更新日志
+*/
+void MainWindow::on_action_update_triggered()
+{
+    // 跳转到本地浏览器打开 github官网查看README.md
+    QDesktopServices::openUrl(QUrl("http://github.com/54simo/qt-simple"));
+}
+/*
+    @SLOT
+    作用: 解锁窗口
+*/
+void MainWindow::on_unlock_btn_clicked()
+{
+    UnlockDialog *dialog = new UnlockDialog(this);
+    connect(dialog, SIGNAL(setFlag(int)), this, SLOT(getFlag(int)));
+    dialog->exec();
+    if(flag)
+    {
+        // 解锁成功
+        updateInterface(ConnectMode);
+        ui->label_pic->show();
+        ui->label_lock->hide();
+        ui->unlock_btn->hide();
+    }
+}
+
+void MainWindow::on_action_lock_triggered()
+{
+    updateInterface(CloseMode);
+    ui->label_pic->hide();
+    ui->label->hide();
+    ui->label_lock->show();
+    ui->unlock_btn->show();
+}
+
+void MainWindow::getFlag(int f)
+{
+    this->flag = f;
 }

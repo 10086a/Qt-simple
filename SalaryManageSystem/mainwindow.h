@@ -28,6 +28,7 @@ public:
     void updateInterface(Mode mode);
 
     void setData(int index);
+    bool createConnection();
 private slots:
     void on_tabWidget_tabBarClicked(int index);
 
@@ -65,6 +66,13 @@ private slots:
 
     void on_action_undo_triggered();
 
+    void on_action_update_triggered();
+
+    void on_unlock_btn_clicked();
+
+    void on_action_lock_triggered();
+
+    void getFlag(int f);
 private:
     Ui::MainWindow *ui;
     QSqlTableModel *model;
@@ -72,7 +80,7 @@ private:
     QTableView *curTableView;
     QLabel *curTimeLabel;
     QClipboard *clipboard;
-
+    int flag = 0;
 };
 
 #endif // MAINWINDOW_H

@@ -14,5 +14,10 @@
         <file>about.ico</file>
         <file>提交.ico</file>
         <file>星星.ico</file>
+        <file alias="update">update.ico</file>
+        <file alias="lock">lock.ico</file>
+        <file alias="fac">fac.ico</file>
+        <file alias="lockWindow">lockWindow.png</file>
+        <file alias="unlockWindow">unlockWindow.png</file>
     </qresource>
 </RCC>

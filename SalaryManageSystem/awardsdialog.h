@@ -15,8 +15,13 @@ public:
     explicit AwardsDialog(QWidget *parent = 0);
     ~AwardsDialog();
 
+private slots:
+    void on_pushButton_1_clicked();
+
 private:
     Ui::AwardsDialog *ui;
+    QString id;   // 输入的员工编号
+    int year;     // 输入的年份
 };
 
 #endif // AWARDSDIALOG_H
