@@ -4,6 +4,7 @@
 #include "statdialog.h"
 #include "awardsdialog.h"
 #include "unlockdialog.h"
+#include "connectiondialog.h"
 
 #include <QClipboard>
 #include <QCloseEvent>
@@ -27,22 +28,43 @@
 /*
     连接数据库
 */
-bool MainWindow::createConnection()
+bool MainWindow::createConnection(QString dbType, QString hostName, int port, QString dbName, QString uid, QString pwd)
 {
-    /*连接数据库*/
-    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-    db.setDatabaseName(QString("DRIVER={SQL SERVER};"
-                               "SERVER=%1;"
-                               "DATABASE=%2;"
-                               "UID=%3;"
-                               "PWD=%4;").arg("127.0.0.1")
-                       .arg("SalaryDMS")
-                       .arg("sa")
-                       .arg("20153299"));
+    QSqlDatabase db;
+    /*根据选择的数据库，判断要使用的数据库驱动并连接数据库*/
+    if(dbType == "MYSQL")
+    {
+        db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName(hostName);
+        db.setPort(port);
+        db.setDatabaseName(dbName);
+        db.setUserName(uid);
+        db.setPassword(pwd);
+    }
+    else if(dbType == "SQL SERVER")
+    {
+        db = QSqlDatabase::addDatabase("QODBC");
+        db.setDatabaseName(QString("DRIVER={SQL SERVER};"
+                                   "SERVER=%1;"
+                                   "PORT=%2;"
+                                   "DATABASE=%3;"
+                                   "UID=%4;"
+                                   "PWD=%5;").arg(hostName)
+                           .arg(port)
+                           .arg(dbName)
+                           .arg(uid)
+                           .arg(pwd));
+    }
+    else
+    {
+        QMessageBox::warning(this,tr("非常抱歉"),
+                             tr("暂时不支持此数据库类型！"),QMessageBox::Ok);
+        return false;
+    }
+
     if (!db.open())
     {
-
-        QMessageBox::warning(0, qApp->tr("Cannot open database"),
+        QMessageBox::warning(this, qApp->tr("Cannot open database"),
                 db.lastError().databaseText(), QMessageBox::Cancel);
         return false;
     }
@@ -217,13 +239,24 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 */
 void MainWindow::on_action_conn_triggered()
 {
-    if(createConnection()) { // 如果连接成功执行
+    ConnectionDialog *dialog = new ConnectionDialog(this);
+    if(!dialog->exec() == QDialog::Accepted)
+    {
+        return;
+    }
+
+    if( createConnection(dialog->getDbType(),dialog->getHostName()
+                        ,dialog->getPort(),dialog->getDbName(),
+                        dialog->getUid(),dialog->getPwd()) )
+    { // 如果连接成功执行
         model = new QSqlTableModel(this);
         this->setData(ui->tabWidget->currentIndex());
         ui->statusBar->showMessage(tr("数据库已连接！"));
-
+        this->setWindowTitle(this->windowTitle()+"【"+dialog->getDbName()+"】");
         updateInterface(ConnectMode);
-    } else {  // 连接失败
+    }
+    else
+    {  // 连接失败
         ui->statusBar->showMessage(tr("SalaryDMS数据库连接失败，请检查服务器可用性！"));
     }
 }
@@ -241,7 +274,7 @@ void MainWindow::on_action_close_triggered()
     for(int i = 0; i < dbList.count(); ++i) {
     QSqlDatabase::removeDatabase(dbList[i]);
     }
-
+    this->setWindowTitle(tr("工资管理系统"));
     qDebug() << "已经关闭数据库连接！";
     ui->statusBar->showMessage(tr("已关闭数据库连接！"));
 //    QString name;
@@ -481,6 +514,8 @@ void MainWindow::on_unlock_btn_clicked()
 void MainWindow::on_action_lock_triggered()
 {
     updateInterface(CloseMode);
+    // 除了关闭模式隐藏的按钮，下面这些按钮也是要隐藏的
+    ui->menu_conn->setEnabled(false);
     ui->label_pic->hide();
     ui->label->hide();
     ui->label_lock->show();

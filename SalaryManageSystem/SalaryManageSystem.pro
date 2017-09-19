@@ -21,14 +21,16 @@ FORMS += \
     aboutdialog.ui \
     awardsdialog.ui \
     statdialog.ui \
-    unlockdialog.ui
+    unlockdialog.ui \
+    connectiondialog.ui
 
 HEADERS += \
     mainwindow.h \
     aboutdialog.h \
     awardsdialog.h \
     statdialog.h \
-    unlockdialog.h
+    unlockdialog.h \
+    connectiondialog.h
 
 SOURCES += \
     main.cpp \
@@ -36,6 +38,7 @@ SOURCES += \
     aboutdialog.cpp \
     awardsdialog.cpp \
     statdialog.cpp \
-    unlockdialog.cpp
+    unlockdialog.cpp \
+    connectiondialog.cpp
 
 RC_FILE = logo.rc

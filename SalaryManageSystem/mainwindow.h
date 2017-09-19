@@ -28,7 +28,7 @@ public:
     void updateInterface(Mode mode);
 
     void setData(int index);
-    bool createConnection();
+    bool createConnection(QString dbType, QString hostName, int port, QString dbName, QString uid, QString pwd);
 private slots:
     void on_tabWidget_tabBarClicked(int index);
 

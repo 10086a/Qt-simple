@@ -8,6 +8,7 @@ UnlockDialog::UnlockDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->label_error->hide();
     ui->label_error->setText(tr("密码错误!"));
+    ui->lineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
 }
 
 UnlockDialog::~UnlockDialog()
